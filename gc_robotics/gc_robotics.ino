@@ -57,7 +57,7 @@ void sceneIntro(){
     Timer_prev=Timer_current;
     tft.fillScreen(RED);
     gamestate=Game_tittle;
-    tft.println("Super");
+    tft.println("Super shakti");
   }
 }
 void playerLogic(boolean move_esq,boolean move_dir,boolean jump){
