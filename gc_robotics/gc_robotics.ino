@@ -28,8 +28,8 @@ TFT_ILI9163C tft = TFT_ILI9163C(__CS, __DC,__RST);
 #define Game_play 104
 #define Game_over 105
 
-float hspd=0;
-float hspd_speed=3;
+float horizontal_move=0;
+float horizontal_speed=3;
 unsigned int gamestate = Game_intro;
 long Timer_prev=0;
 unsigned long Timer_current=0;
@@ -58,12 +58,24 @@ void sceneIntro(){
     tft.fillScreen(RED);
     gamestate=Game_tittle;
     tft.println("Super shakti");
+    delay(1000);
+    tft.fillScreen(WHITE);
+    tft.drawLine(0,-15,20,-15,BLACK);
   }
 }
+boolean intersect_rect(float*r1,float*r2){
+  if (r1[0]<r2[0]+r2[2] && r1[0]+r1[2]>r2[0]){
+    if (r1[1]<r2[1] + r2[3] && r1[3] + r1[1]>r2[1]){
+      return true;
+    }
+  }
+  return false;
+}
+
 void playerLogic(boolean move_esq,boolean move_dir,boolean jump){
   //Horizontal movement
   if (player_state != dead_player){
-    hspd=0;
+    horizontal_move=0;
     boolean moving=false;
     if (move_esq==true && move_dir==false){
       player_direction=1;
@@ -73,7 +85,7 @@ void playerLogic(boolean move_esq,boolean move_dir,boolean jump){
       moving=true;
     }
     if(moving)
-    hspd=hspd_speed*(float)player_direction;
+    horizontal_move=horizontal_speed*(float)player_direction;
 
   }
 
