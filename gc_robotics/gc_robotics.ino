@@ -60,7 +60,8 @@ void sceneIntro(){
     tft.println("Super shakti");
     delay(1000);
     tft.fillScreen(WHITE);
-    tft.drawLine(0,-15,20,-15,BLACK);
+    tft.drawLine(0,100,128,100,BLACK);
+    
   }
 }
 boolean intersect_rect(float*r1,float*r2){
