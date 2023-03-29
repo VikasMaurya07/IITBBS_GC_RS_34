@@ -22,6 +22,6 @@ void loop() {
   Serial.print(" Z: ");
   Serial.println(event.acceleration.z);
 
-   delay(100);
+   delay(120);
 
 }
