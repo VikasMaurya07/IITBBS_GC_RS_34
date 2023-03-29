@@ -6,7 +6,6 @@
 #define __DC 9
 #define __RST 12
 TFT_ILI9163C tft = TFT_ILI9163C(__CS, __DC,__RST);
-
 // Color definitions
 #define	BLACK   0x0000
 #define	BLUE    0x001F
@@ -17,112 +16,97 @@ TFT_ILI9163C tft = TFT_ILI9163C(__CS, __DC,__RST);
 #define YELLOW  0xFFE0  
 #define WHITE   0xFFFF
 
-#define still_player 0
-#define move_player 1
-#define jump_player 2
-#define dead_player 4
-#define Game_intro 100
-#define Game_tittle 101
-#define Game_credits 102
-#define Game_Level 103
-#define Game_play 104
-#define Game_over 105
 
-float horizontal_move=0;
-float horizontal_speed=3;
-unsigned int gamestate = Game_intro;
-long Timer_prev=0;
-unsigned long Timer_current=0;
-int player_state=still_player;
-int player_direction=1;
-int last_direction=1;
-long player_timer=0;
-long player_timer_prev=0;
-int obst_x=100;
-int obst_y=46;
 
-float sign(float x){
-  if(x>0) 
-  return 1;
-  else if(x<0) 
-  return -1;
-  
-return 0;
-}
+const int buttonPin = 7;
+int buttonState = 0;
 
-//intro
-void sceneIntro(){
-  float sizex=13*6;
-  tft.setTextSize(1);
-  tft.setTextColor(BLACK);
-  tft.setCursor((tft.width()-sizex)/2,tft.height()/2-12);
-  tft.display(true);
-  Timer_current=millis();
-  if (Timer_current-Timer_prev>2500){
-    Timer_prev=Timer_current;
-    tft.fillScreen(RED);
-    gamestate=Game_tittle;
-    tft.println("Super shakti");
-    delay(1000);
-    tft.fillScreen(BLACK);
-    tft.drawLine(0,50,100,50,RED);
-    tft.drawRect(obst_x,obst_y,5,5,RED);
+const int charwi = 10;
+const int charhi = 10;
+const int platwi = 240;
+const int plathi = 20;
+const int platY = 150;
+const int minobs = 20;
+const int maxobs = 80;
+const int obswi= 20;
+const int obspace = 80;
+const int obscount = 3;
+const int obspeed = 3;
+const int humphi = 50;
+int charX = 20;
+int charY = 150 - charhi;
+int charYSpeed = 0;
+int platX = 0;
+int platSpeed = 3;
+int obstacleX[obscount];
+int obstacleY[obscount];
 
-    
+void setup()
+{
+    tft.begin();
+    tft.setRotation(3);
+    //pinMode(buttonPin, INPUT_PULLUP);
+    //randomSeed(analogRead(0));
 
-    
-  }
-}
-boolean intersect_rect(float*r1,float*r2){
-  if (r1[0]<r2[0]+r2[2] && r1[0]+r1[2]>r2[0]){
-    if (r1[1]<r2[1] + r2[3] && r1[3] + r1[1]>r2[1]){
-      return true;
+    for (int i = 0; i < obscount; i++)
+    {
+        obstacleX[i] = platwi + i * obspace;
+        obstacleY[i] = platY - random(minobs, maxobs);
     }
-  }
-  return false;
 }
 
-void playerLogic(boolean move_esq,boolean move_dir,boolean jump){
-  //Horizontal movement
-  if (player_state != dead_player){
-    horizontal_move=0;
-    boolean moving=false;
-    if (move_esq==true && move_dir==false){
-      player_direction=1;
-      moving=true;
-    }else if(move_dir==true && move_esq==false){
-      player_direction=-1;
-      moving=true;
+void loop()
+{
+
+    tft.fillRect(charX, charY, charwi, charhi,BLACK);
+    for (int i = 0; i < obscount; i++)
+    {
+        tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],BLACK);
     }
-    if(moving)
-    horizontal_move=horizontal_speed*(float)player_direction;
 
-  }
+    platX += platSpeed;
+    if (platX < 0 || platX + platwi > tft.width())
+    {
+        platSpeed = -platSpeed;
+    }
 
-}
+    for (int i = 0; i < obscount; i++)
+    {
+        obstacleX[i] -= obspeed;
+        if (obstacleX[i] + obswi< 0)
+        {
+            obstacleX[i] = tft.width() + obspace;
+            obstacleY[i] = platY - random(minobs, maxobs);
+        }
+    }
 
-void setup(){
-  tft.begin();
+    //buttonState = digitalRead(buttonPin);
+    if (charY == platY - charhi)
+    {
+        charYSpeed = -humphi;
+    }
+    charY += charYSpeed;
+    charYSpeed++;
 
-}
+    if (charY + charhi > tft.height())
+    {
+        charY = tft.height() - charhi;
+        charYSpeed = 0;
+    }
+    if (charY > platY)
+    {
+        charY = platY - 20;
+        charYSpeed = 0;
+    }
 
+    tft.fillRect(platX, platY, platwi, plathi, BLUE);
 
-void loop(void){
+    for (int i = 0; i < obscount; i++)
+    {
+        tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],RED);
+    }
 
-  
-  switch(gamestate){
-    case Game_intro: {
-      sceneIntro(); 
-      break;
-      }
-  }
-    
+    tft.fillRect(charX, charY, charwi, charhi,GREEN);
 
-
-
-
-
-
-  
-
+    delay(10);
 }
