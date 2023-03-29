@@ -38,8 +38,8 @@ int player_direction=1;
 int last_direction=1;
 long player_timer=0;
 long player_timer_prev=0;
-int obst_x=50;
-int obst_y=150;
+int obst_x=100;
+int obst_y=46;
 
 float sign(float x){
   if(x>0) 
@@ -64,9 +64,11 @@ void sceneIntro(){
     gamestate=Game_tittle;
     tft.println("Super shakti");
     delay(1000);
-    tft.fillScreen(WHITE);
-    tft.drawLine(0,150,20,150,BLACK);
-    tft.drawRect(obst_x,obst_y,5,5,BLACK);
+    tft.fillScreen(BLACK);
+    tft.drawLine(0,50,100,50,RED);
+    tft.drawRect(obst_x,obst_y,5,5,RED);
+
+    
 
     
   }
@@ -106,17 +108,21 @@ void setup(){
 
 
 void loop(void){
+
+  
   switch(gamestate){
     case Game_intro: {
       sceneIntro(); 
       break;
       }
   }
+    
 
 
 
 
 
-  obst_x=obst_x-2;
+
+  
 
 }
