@@ -2,6 +2,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
 
+
 #define __CS 10
 #define __DC 9
 #define __RST 12
@@ -41,7 +42,7 @@ int obstacleY[obscount];
 void setup()
 {
     tft.initR(INITR_BLACKTAB);
-  tft.fillScreen(YELLOW);
+  tft.fillScreen(BLACK);
     tft.setRotation(3);
     
 
@@ -60,7 +61,7 @@ void loop()
     //tft.fillRect(charX, charY, charwi, charhi,BLACK);
     for (int i = 0; i < obscount; i++)
     {
-        tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],YELLOW);
+        tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],BLACK);
     }
 
     platX += platSpeed;
@@ -105,7 +106,8 @@ void loop()
         tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],RED);
     }
 
-tft.fillRect(charX, charY, charwi, charhi,MAGENTA);    
+tft.fillRect(charX, charY, charwi, charhi,MAGENTA);
+  
 
     delay(10);
 }
