@@ -5,7 +5,7 @@
 This is an implementation of a simple game from a popular gaming genre called Platformers inspired by classic games like Super Mario or Gianna Sisters. This is the project made using Adafruit_GFX and Adafruit_ST7735 libraries for display and Wire.h for accelerometer. In this game, player controls a character who jumps by sensor movement and crosses the obstacles. The game goes on endlessly and the game is over when character collide with obstacle coming in its way.
 
 <br>
-
+<br>
 
 ####Components used
 -  Arduino UNO
