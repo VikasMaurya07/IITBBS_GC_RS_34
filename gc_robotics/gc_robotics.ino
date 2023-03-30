@@ -1,6 +1,7 @@
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
+#include "marioblack.h"
 
 
 #define __CS 10
@@ -9,8 +10,8 @@
 Adafruit_ST7735 tft = Adafruit_ST7735(__CS, __DC,__RST);
 // Color definitions
 #define	BLACK   0x0000
-#define	BLUE    0x001F
-#define	RED     0xF800
+#define	RED     0x001F
+#define	BLUE    0xF800
 #define	GREEN   0x07E0
 #define CYAN    0x07FF
 #define MAGENTA 0xF81F
@@ -99,14 +100,15 @@ void loop()
         charYSpeed = 0;
     }*/
     tft.fillRect(platX,105,platwi,5,GREEN);
-    tft.fillRect(platX, platY, platwi, plathi,BLUE);
+    tft.fillRect(platX, platY, platwi, plathi,RED);
 
     for (int i = 0; i < obscount; i++)
     {
-        tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],RED);
+        tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],BLUE);
     }
 
-tft.fillRect(charX, charY, charwi, charhi,MAGENTA);
+//tft.fillRect(charX, charY, charwi, charhi,MAGENTA);
+tft.drawBitmap(charX,70,mario,30,30,WHITE);
   
 
     delay(10);
