@@ -2,6 +2,9 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
 #include "marioblack.h"
+#include "jumpfile.h"
+#include "run2.h"
+
 
 
 #define __CS 10
@@ -25,8 +28,8 @@ const int charhi = 10;
 const int platwi = 240;
 const int plathi = 40;
 const int platY = 110;
-const int minobs = 20;
-const int maxobs = 80;
+const int minobs = 30;
+const int maxobs = 60;
 const int obswi= 20;
 const int obspace = 80;
 const int obscount = 3;
@@ -44,6 +47,8 @@ int obstacleY[obscount];
 #define TFTH            160     // screen height
 #define TFTW2            64     // half screen width
 #define TFTH2            80     // half screen height
+
+int num=0;
 
 void setup()
 {
@@ -91,6 +96,8 @@ delay(1000);
         obstacleY[i] = platY - random(minobs, maxobs);
     }
 
+  
+
     
 }
 
@@ -101,17 +108,18 @@ void loop()
     for (int i = 0; i < obscount; i++)
     {
         tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],BLACK);
+      
     }
 
-    platX += platSpeed;
+    /*platX += platSpeed;
     if (platX < 0 || platX + platwi > tft.width())
     {
         platSpeed = -platSpeed;
-    }
+    }*/
 
     for (int i = 0; i < obscount; i++)
     {
-        obstacleX[i] -= obspeed;
+        obstacleX[i] = obstacleX[i] - obspeed-5;
         if (obstacleX[i] + obswi< 0)
         {
             obstacleX[i] = tft.width() + obspace;
@@ -142,12 +150,25 @@ void loop()
 
     for (int i = 0; i < obscount; i++)
     {
-        tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],BLUE);
+        tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],CYAN);
     }
+    //delay(10);
 
 //tft.fillRect(charX, charY, charwi, charhi,MAGENTA);
- tft.drawBitmap(charX,70,mario,19,30,WHITE);
-  
+   
+   if(num%2==0){
+tft.drawBitmap(charX,70,mario,19,30,WHITE);
+delay(100);
+tft.fillRect(charX,70,19,30,BLACK);
 
-    delay(10);
+   }
+   else{
+    tft.drawBitmap(charX,70,run2,19,30,WHITE); 
+delay(100);
+    tft.fillRect(charX,70,19,30,BLACK);
+    
+   }
+num++;   
+
+    
 }
