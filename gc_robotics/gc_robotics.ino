@@ -40,9 +40,47 @@ int platSpeed = 4;
 int obstacleX[obscount];
 int obstacleY[obscount];
 
+#define TFTW            128     // screen width
+#define TFTH            160     // screen height
+#define TFTW2            64     // half screen width
+#define TFTH2            80     // half screen height
+
 void setup()
 {
     tft.initR(INITR_BLACKTAB);
+    
+     
+tft.fillScreen(BLACK);
+    tft.setRotation(3);
+  tft.fillRect(10, TFTH2 - 20, TFTW-20, 1, WHITE);
+  tft.fillRect(10, TFTH2 + 32, TFTW-20, 1, WHITE);
+  tft.setTextColor(WHITE);
+  tft.setTextSize(3);
+  // half width - num char * char width in pixels
+  tft.setCursor( TFTW2-(6*9), TFTH2 - 16);
+  tft.println("SUPER");
+  tft.setTextSize(3);
+  tft.setCursor( TFTW2-(6*9), TFTH2 + 8);
+  tft.println("-MARIO-");
+  tft.setTextSize(0);
+  tft.setCursor( 10, TFTH2 - 28);
+  tft.setCursor( TFTW2 - (12*3) - 1, TFTH2 + 34);
+  tft.println("Let's Go!!!");
+  delay(2000);
+  tft.fillScreen(BLACK);
+  tft.setCursor(25, 60);
+  tft.setTextColor(WHITE);
+  tft.setTextSize(2);
+ 
+
+  tft.print("Loading");
+  delay(500);
+  float i;
+  for( i= 0; i<82; i=i+0.5){
+  tft.fillRect(25,80,i,5,WHITE);
+}
+delay(1000);
+    
   tft.fillScreen(BLACK);
     tft.setRotation(3);
     
