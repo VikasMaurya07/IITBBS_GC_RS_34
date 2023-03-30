@@ -59,7 +59,7 @@ SCL: A5
 
 
 ####Installation Guide
-After downloading Arduino IDE on your system, download all the required libraries in your Arduino IDE. Now copy-paste the code of the gc_robotics on your Arduino. Save this file in a folder in Documents<<Arduino. 
+After downloading Arduino IDE on your system, download all the required libraries in your Arduino IDE. Now copy-paste the code of the gc_robotics on your Arduino IDE. 
 
 Now after doing connections as shown, upload the code to the Arduino board. Now the game will be started.
 
