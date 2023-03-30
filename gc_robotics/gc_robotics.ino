@@ -30,9 +30,9 @@ const int platwi = 240;
 const int plathi = 40;
 const int platY = 110;
 const int minobs = 30;
-const int maxobs = 60;
-const int obswi= 20;
-const int obspace = 80;
+const int maxobs = 40;
+const int obswi= 10;
+const int obspace = 100;
 const int obscount = 3;
 const int obspeed = 3;
 const int humphi = 100;
@@ -47,6 +47,7 @@ int ADXL345 = 0X53;
 int y_out;
 int x_out;
 int z_out;
+
 
 #define TFTW            128     // screen width
 #define TFTH            160     // screen height
@@ -106,7 +107,7 @@ Wire.beginTransmission(ADXL345);
 Wire.write(0X2D);
 Wire.write(8);
 Wire.endTransmission();
-delay(10);
+delay(1000);
   
 
     
@@ -114,6 +115,8 @@ delay(10);
 
 void loop()
 {
+
+
 
 Wire.beginTransmission(ADXL345);
 Wire.write(0X32);
@@ -126,7 +129,7 @@ z_out = (Wire.read()|Wire.read()<<8);
 
 //y_out = (Wire.read()|Wire.read()<<8);
 tft.fillRect(0,0,128,60,BLACK);
-Serial.println(y_out);
+Serial.println(z_out);
     //tft.fillRect(charX, charY, charwi, charhi,BLACK);
     for (int i = 0; i < obscount; i++)
     {
@@ -151,7 +154,7 @@ Serial.println(y_out);
     }
 
     
-    if ((y_out>1.5) )
+    if ((z_out>1.5) )
     {
      charYSpeed = -2;
     
@@ -168,7 +171,7 @@ Serial.println(y_out);
 
   
 
-    if (charY<25)
+    if (charY<15)
     {
       for(int i=1;i<65;i++){
         charY=charY+1;
@@ -185,10 +188,50 @@ Serial.println(y_out);
     tft.fillRect(platX,105,platwi,5,GREEN);
     tft.fillRect(platX, platY, platwi, plathi,RED);
 
+/*if(num%2==0){
+tft.drawBitmap(charX,70,mario,19,30,WHITE);
+delay(100);
+tft.fillRect(charX,70,19,30,BLACK);
+
+   }
+   else{
+    tft.drawBitmap(charX,charY,run2,19,30,WHITE); 
+delay(100);
+    tft.fillRect(charX,charY,19,30,BLACK);
+    
+   }
+num++;*/    
+
+    
+    tft.drawBitmap(charX,charY,mario,19,30,WHITE);
+tft.drawBitmap(charX,charY,mario,19,30,WHITE);    
+    //delay(50);
+    tft.drawBitmap(charX,charY,mario,19,30,BLACK);
+
     for (int i = 0; i < obscount; i++)
     {
         tft.fillRect(obstacleX[i], obstacleY[i], obswi, platY - obstacleY[i],CYAN);
-    }
+        
+      if((obstacleX[i]==charX)||(obstacleY[i]==charY)){
+               
+        tft.fillScreen(BLACK);
+        tft.setTextColor(WHITE);
+        tft.setTextSize(2);
+        
+        tft.setCursor( TFTW2 - (9*6), TFTH2-20 );
+        tft.println("GAME OVER!");
+        delay(4000);        
+        tft.fillScreen(BLACK);
+                
+        
+                
+        
+          
+
+       }
+        
+        
+        }
     //delay(10);
 
 //tft.fillRect(charX, charY, charwi, charhi,MAGENTA);
@@ -206,6 +249,9 @@ delay(100);
     
    }
 num++;*/   
-tft.drawBitmap(charX,charY,mario,19,30,WHITE);
+    
+        
+        
+
     
 }
