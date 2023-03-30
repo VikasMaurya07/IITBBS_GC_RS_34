@@ -1,6 +1,7 @@
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
+#include<Wire.h>
 #include "marioblack.h"
 #include "jumpfile.h"
 #include "run2.h"
@@ -20,8 +21,8 @@ Adafruit_ST7735 tft = Adafruit_ST7735(__CS, __DC,__RST);
 #define MAGENTA 0xF81F
 #define YELLOW  0xFFE0  
 #define WHITE   0xFFFF
-const int buttonPin = 7;
-int buttonState = 0;
+//const int buttonPin = 7;
+//int buttonState = 0;
 
 const int charwi = 10;
 const int charhi = 10;
@@ -34,14 +35,18 @@ const int obswi= 20;
 const int obspace = 80;
 const int obscount = 3;
 const int obspeed = 3;
-const int humphi = 50;
+const int humphi = 100;
 int charX = 20;
-int charY = 95;
+int charY = 70;
 int charYSpeed = 0;
 int platX = 0;
 int platSpeed = 4;
 int obstacleX[obscount];
 int obstacleY[obscount];
+int ADXL345 = 0X53;
+int y_out;
+int x_out;
+int z_out;
 
 #define TFTW            128     // screen width
 #define TFTH            160     // screen height
@@ -95,7 +100,13 @@ delay(1000);
         obstacleX[i] = platwi + i * obspace;
         obstacleY[i] = platY - random(minobs, maxobs);
     }
-
+Serial.begin(9600);
+Wire.begin();
+Wire.beginTransmission(ADXL345);
+Wire.write(0X2D);
+Wire.write(8);
+Wire.endTransmission();
+delay(10);
   
 
     
@@ -104,6 +115,18 @@ delay(1000);
 void loop()
 {
 
+Wire.beginTransmission(ADXL345);
+Wire.write(0X32);
+Wire.endTransmission(false);
+Wire.requestFrom(ADXL345,6,true);
+x_out = (Wire.read()|Wire.read()<<8);
+y_out = (Wire.read()|Wire.read()<<8);
+z_out = (Wire.read()|Wire.read()<<8);
+
+
+//y_out = (Wire.read()|Wire.read()<<8);
+tft.fillRect(0,0,128,60,BLACK);
+Serial.println(y_out);
     //tft.fillRect(charX, charY, charwi, charhi,BLACK);
     for (int i = 0; i < obscount; i++)
     {
@@ -111,15 +134,15 @@ void loop()
       
     }
 
-    /*platX += platSpeed;
+    platX += platSpeed;
     if (platX < 0 || platX + platwi > tft.width())
     {
         platSpeed = -platSpeed;
-    }*/
+    }
 
     for (int i = 0; i < obscount; i++)
     {
-        obstacleX[i] = obstacleX[i] - obspeed-5;
+        obstacleX[i] = obstacleX[i] - obspeed;
         if (obstacleX[i] + obswi< 0)
         {
             obstacleX[i] = tft.width() + obspace;
@@ -128,23 +151,37 @@ void loop()
     }
 
     
-    /*if (charY == platY - charhi)
+    if ((y_out>1.5) )
     {
-        charYSpeed = -humphi;
-    }
+     charYSpeed = -2;
+    
     charY += charYSpeed;
-    charYSpeed++;*/
+    charYSpeed++;
+    
+//charY=charY-(y_out/100);
 
-    if (charY + charhi > tft.height())
-    {
-        charY = tft.height() - charhi;
-        charYSpeed = 0;
+
+    
     }
-    /*if (charY > platY)
+
+    
+
+  
+
+    if (charY<25)
+    {
+      for(int i=1;i<65;i++){
+        charY=charY+1;
+        //charY = tft.height() - charhi;
+              
+        charYSpeed = 0;
+      }
+    }
+    if (charY > platY)
     {
         charY = platY - 20;
         charYSpeed = 0;
-    }*/
+    }
     tft.fillRect(platX,105,platwi,5,GREEN);
     tft.fillRect(platX, platY, platwi, plathi,RED);
 
@@ -156,7 +193,7 @@ void loop()
 
 //tft.fillRect(charX, charY, charwi, charhi,MAGENTA);
    
-   if(num%2==0){
+   /*if(num%2==0){
 tft.drawBitmap(charX,70,mario,19,30,WHITE);
 delay(100);
 tft.fillRect(charX,70,19,30,BLACK);
@@ -168,7 +205,7 @@ delay(100);
     tft.fillRect(charX,70,19,30,BLACK);
     
    }
-num++;   
-
+num++;*/   
+tft.drawBitmap(charX,charY,mario,19,30,WHITE);
     
 }
