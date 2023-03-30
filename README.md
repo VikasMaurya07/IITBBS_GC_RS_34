@@ -54,6 +54,8 @@ SCL: A5
  
 <br>
 
+![connections](https://github.com/VikasMaurya7/IITBBS_GC_RS_34/blob/master/circuit2.jpg?raw=true)
+
 
 
 ####Installation Guide
