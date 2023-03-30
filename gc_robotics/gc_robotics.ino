@@ -146,7 +146,7 @@ void loop()
     }
 
 //tft.fillRect(charX, charY, charwi, charhi,MAGENTA);
-tft.drawBitmap(charX,70,mario,30,30,WHITE);
+ tft.drawBitmap(charX,70,mario,19,30,WHITE);
   
 
     delay(10);
