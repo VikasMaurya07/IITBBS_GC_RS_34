@@ -35,7 +35,7 @@ These are the libraries that you need to install
 
 ####Connections
 Pin Congiguration:
-#######TFT Display with Arduino
+######TFT Display with Arduino
 A0: D9
 CS: D10
 SDA: D11
@@ -54,7 +54,7 @@ SCL: A5
  
 <br>
 
-![connections](https://github.com/VikasMaurya7/IITBBS_GC_RS_34/blob/master/circuit2.jpg?raw=true)
+
 
 
 
@@ -65,7 +65,7 @@ Now after doing connections as shown, upload the code to the Arduino board. Now 
 
 <br>
 
-###Playing Game
+####Playing Game
 - The game starts with the initial screen displaying "" and then after loading main screen appears.
 - Now the character appears at left of screen.
 - The obstacles start coming on the screen towars the player.

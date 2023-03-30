@@ -69,10 +69,10 @@ tft.fillScreen(BLACK);
   tft.setTextSize(3);
   // half width - num char * char width in pixels
   tft.setCursor( TFTW2-(6*9), TFTH2 - 16);
-  tft.println("SUPER");
+  tft.println("BTECH");
   tft.setTextSize(3);
   tft.setCursor( TFTW2-(6*9), TFTH2 + 8);
-  tft.println("-MARIO-");
+  tft.println("-SAGA-");
   tft.setTextSize(0);
   tft.setCursor( 10, TFTH2 - 28);
   tft.setCursor( TFTW2 - (12*3) - 1, TFTH2 + 34);
