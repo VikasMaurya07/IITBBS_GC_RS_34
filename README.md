@@ -1,13 +1,10 @@
-
-
-
-####Introduction of Project
+# Introduction of Project
 This is an implementation of a simple game from a popular gaming genre called Platformers inspired by classic games like Super Mario or Gianna Sisters. This is the project made using Adafruit_GFX and Adafruit_ST7735 libraries for display and Wire.h for accelerometer. In this game, player controls a character who jumps by sensor movement and crosses the obstacles. The game goes on endlessly and the game is over when character collide with obstacle coming in its way.
 
 <br>
 <br>
 
-####Components used
+# Components used
 -  Arduino UNO
 -  TFT ILI9163C LCD SCREEN 1.44' using ST7755 display driver
 -  Accelerometer
@@ -21,7 +18,7 @@ This is an implementation of a simple game from a popular gaming genre called Pl
 
 
 
-####Setup
+# Setup
 
 It will work in any Operating System with Arduino IDE but you have to install sprecified libraries in your Arduino IDE which may not be pre-installed.
 
@@ -33,9 +30,9 @@ These are the libraries that you need to install
 
 <br>
 
-####Connections
+# Connections
 Pin Congiguration:
-######TFT Display with Arduino
+## TFT Display with Arduino
 A0: D9
 CS: D10
 SDA: D11
@@ -45,7 +42,7 @@ LED: 3.3V
 VCC: 5V
 GND: GND
 
-######Accelerometer with Arduino
+## Accelerometer with Arduino
 VCC: 3.3V
 GND: GND
 SDA: A4
@@ -58,14 +55,14 @@ SCL: A5
 
 
 
-####Installation Guide
+# Installation Guide
 After downloading Arduino IDE on your system, download all the required libraries in your Arduino IDE. Now copy-paste the code of the gc_robotics on your Arduino IDE. 
 
 Now after doing connections as shown, upload the code to the Arduino board. Now the game will be started.
 
 <br>
 
-####Playing Game
+# Playing Game
 - The game starts with the initial screen displaying "" and then after loading main screen appears.
 - Now the character appears at left of screen.
 - The obstacles start coming on the screen towars the player.
